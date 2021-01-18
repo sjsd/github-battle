@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa'
+import { FaUserFriends, FaFighterJet, FaTrophy, FaTimesCircle } from 'react-icons/fa'
 
 function Instrunctions() {
     return (
@@ -90,6 +90,46 @@ PlayerInput.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
 }
+
+function PlayerReview ({ username, onReset, label }) {
+    return (
+        <div className='column player'>
+            <h3 className='player-label'>
+                {label}
+            </h3>
+            <div className='row bg-light'>
+                <div className='player-info'>
+                    <img 
+                        className='avatar-small'
+                        src={`https://github.com/${username}.png?size=200`}
+                        alt={`Avatar for ${username}`}
+                    />
+                    <a
+                        href={`https://github.com/${username}`}
+                        title={`Go to ${username}s GitHub page`}
+                        target={`_blank`}
+                        className='link'  
+                    >
+                        {username}
+                    </a>
+                </div>
+                <button
+                    className='btn-clear flex-center'
+                    onClick={onReset}
+                >
+                    <FaTimesCircle color='rgb(194, 57, 42)' size={26} />
+                </button>
+            </div>
+        </div>
+    )
+}
+
+PlayerReview.propTypes = {
+    username: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired
+}
+
 export default class Battle extends React.Component {
     constructor(props) {
         super(props)
@@ -100,11 +140,18 @@ export default class Battle extends React.Component {
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleReset = this.handleReset.bind(this)
     }
 
     handleSubmit(id, player) {
         this.setState({
             [id]: player
+        })
+    }
+
+    handleReset(id) {
+        this.setState({
+            [id]: null
         })
     }
     render() {
@@ -119,19 +166,29 @@ export default class Battle extends React.Component {
                         Players
                     </h1>
                     <div className='row space-around'>
-                        {playerOne === null && (
-                            <PlayerInput 
+                        {playerOne === null
+                            ? <PlayerInput 
                                 label='Player One'
                                 onSubmit={(player) => this.handleSubmit('playerOne', player)}
                             />
-                        )}
+                            : <PlayerReview 
+                                username={playerOne}
+                                onReset={() => this.handleReset('playerOne')}
+                                label='Player One'
+                            />
+                        }
 
-                        {playerTwo === null && (
-                            <PlayerInput 
+                        {playerTwo === null
+                            ? <PlayerInput 
                                 label='Player Two'
                                 onSubmit={(player) => this.handleSubmit('playerTwo', player)}
                             />
-                        )}
+                            : <PlayerReview 
+                                username={playerTwo}
+                                onReset={() => this.handleReset('playerTwo')}
+                                label='Player Two'
+                            />
+                        }
 
                     </div>
                 </div>
