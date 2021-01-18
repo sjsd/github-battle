@@ -1,6 +1,5 @@
-const id = "YOUR_CLIENT_ID"
-const sec = "YOUR_SECRET_ID"
-const params = `?client_id=${id}&client_secret=${sec}`
+import { credentials } from './credentials'
+const params = `?client_id=${credentials.id}&client_secret=${credentials.sec}`
 
 function getErrorMsg(message, username) {
     if (message === 'Not Found') {
