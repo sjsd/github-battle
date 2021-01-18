@@ -8,3 +8,4 @@ export const credentials = {
     sec: 'YOUR_SECRET_ID'
 }
 ```
+You can get your credentials from https://github.com/settings/developers --> OAuth Apps.
