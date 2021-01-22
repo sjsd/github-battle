@@ -47,7 +47,7 @@ class PlayerInput extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    
+
     handleSubmit(event) {
         event.preventDefault()
 
@@ -103,7 +103,7 @@ function PlayerReview ({ username, onReset, label }) {
             </h3>
             <div className='row bg-light'>
                 <div className='player-info'>
-                    <img 
+                    <img
                         className='avatar-small'
                         src={`https://github.com/${username}.png?size=200`}
                         alt={`Avatar for ${username}`}
@@ -112,7 +112,7 @@ function PlayerReview ({ username, onReset, label }) {
                         href={`https://github.com/${username}`}
                         title={`Go to ${username}s GitHub page`}
                         target={`_blank`}
-                        className='link'  
+                        className='link'
                     >
                         {username}
                     </a>
@@ -163,7 +163,17 @@ export default class Battle extends React.Component {
         const { playerOne, playerTwo, battle } = this.state
 
         if (battle === true) {
-            return <Results playerOne={playerOne} playerTwo={playerTwo} />
+            return (
+				<Results
+					playerOne={playerOne}
+					playerTwo={playerTwo}
+					onReset={() => this.setState({
+						playerOne: null,
+						playerTwo: null,
+						battle: false
+					})}
+				/>
+			)
         }
 
         return (
@@ -176,11 +186,11 @@ export default class Battle extends React.Component {
                     </h1>
                     <div className='row space-around'>
                         {playerOne === null
-                            ? <PlayerInput 
+                            ? <PlayerInput
                                 label='Player One'
                                 onSubmit={(player) => this.handleSubmit('playerOne', player)}
                             />
-                            : <PlayerReview 
+                            : <PlayerReview
                                 username={playerOne}
                                 onReset={() => this.handleReset('playerOne')}
                                 label='Player One'
@@ -188,11 +198,11 @@ export default class Battle extends React.Component {
                         }
 
                         {playerTwo === null
-                            ? <PlayerInput 
+                            ? <PlayerInput
                                 label='Player Two'
                                 onSubmit={(player) => this.handleSubmit('playerTwo', player)}
                             />
-                            : <PlayerReview 
+                            : <PlayerReview
                                 username={playerTwo}
                                 onReset={() => this.handleReset('playerTwo')}
                                 label='Player Two'
