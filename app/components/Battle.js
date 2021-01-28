@@ -159,7 +159,8 @@ export default class Battle extends React.Component {
             [id]: null
         })
     }
-    render() {
+
+	render() {
         const { playerOne, playerTwo, battle } = this.state
 
         if (battle === true) {

@@ -8,7 +8,6 @@ const styles = {
 		margin: '20px auto'
 	}
 }
-
 export default class Loading extends React.Component {
 	constructor(props) {
 		super(props)
